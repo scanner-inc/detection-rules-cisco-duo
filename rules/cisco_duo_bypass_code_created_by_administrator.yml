@@ -1,0 +1,33 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Cisco Duo bypass code created by administrator
+description: |-
+  ## Goal
+  Detect when a bypass code is created by an administrator in Cisco Duo.
+
+  ## Strategy
+  This rule monitors Cisco Duo activity logs for the creation of bypass codes, which are temporary passcodes issued by administrators for specific users. These codes serve as backup access for enrolled users facing issues with their mobile devices or access to their enrolled devices.
+
+  ## Triage and Response
+  1. Investigate the creation of the bypass code:
+     * Verify if the creation by the user and device IP was authorized and legitimate.
+     * Identify the responsible administrator.
+  2. If unauthorized or suspicious activity is detected:
+     * Disable or review the administrator's account.
+     * Reset any affected user accounts associated with the bypass codes.
+     * Initiate a security breach investigation.
+enabled: true
+severity: Informational
+query_text: |-
+  %ingest.source_type:cisco-duo
+  service:activity
+  cisco.duo.action.name:bypass_create
+  | groupbycount(access_device.ip.address, email)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- informational_severity_alerts
+tags:
+- techniques.t1556.modify_authentication_process
+- source.cisco-duo
+- tactics.ta0005.defense_evasion

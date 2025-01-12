@@ -1,0 +1,29 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Cisco Duo user marked authentication request as fraudulent
+description: |-
+  ## Goal
+  Detect when a user marks a Duo push as fraudulent.
+
+  ## Strategy
+  This rule monitors Cisco Duo logs for instances when a user marks a Duo push as fraudulent. Users may flag a push as fraudulent if they find it suspicious, such as indicating an unusual location or application.
+
+  ## Triage and Response
+  1. Contact the user to confirm why they found the push suspicious.
+  2. Investigate the push event, focusing on the IP address and application involved.
+  3. If the event is deemed malicious, initiate your organization's incident response process to contain the affected account or device.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:cisco-duo
+  service:authentication
+  result:fraud
+  | groupbycount(access_device.ip, application.name, email)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- techniques.t1078.valid_accounts
+- source.cisco-duo
+- tactics.ta0001.initial_access

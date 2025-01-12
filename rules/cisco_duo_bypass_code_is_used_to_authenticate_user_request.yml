@@ -1,0 +1,30 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Cisco Duo bypass code is used to authenticate user request
+description: |-
+  ## Goal
+  Detect when a Duo bypass code is used for user authentication.
+
+  ## Strategy
+  This rule monitors successful authentication events in Cisco Duo logs with the reason set to "bypass user".
+
+  ## Triage and Response
+  1. Contact the user to confirm they used the bypass code.
+  2. If the user is unaware, investigate the authentication event, focusing on the IP address, application, and user involved.
+  3. If the event is malicious, initiate your organization's incident response process to contain the affected account or device.
+enabled: true
+severity: Low
+query_text: |-
+  %ingest.source_type:cisco-duo
+  service:authentication
+  result:success
+  reason:bypass_user
+  | groupbycount(access_device.ip, application.name, email)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- low_severity_alerts
+tags:
+- techniques.t1078.valid_accounts
+- source.cisco-duo
+- tactics.ta0001.initial_access

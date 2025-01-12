@@ -1,0 +1,29 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Cisco Duo administrator locked out after too many failed login attempts
+description: |-
+  ## Goal
+  Detect when a Duo administrator is locked out of their account due to failed login attempts.
+
+  ## Strategy
+  This rule monitors administrator lockout events in Cisco Duo logs. While this may result from user error, it could also indicate an attacker attempting to gain unauthorized access through brute force.
+
+  ## Triage and Response
+  1. Contact the user to determine if they are aware of the failed authentication attempts.
+  2. If the user is unaware, investigate the authentication event, focusing on the IP address, application, and user involved.
+  3. If the event is deemed malicious, initiate the organization's incident response process to contain the affected account or device.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:cisco-duo
+  service:administrator
+  cisco.duo.action.name:admin_lockout
+  | groupbycount(username)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0006.credential_access
+- source.cisco-duo
+- techniques.t1110.brute_force
