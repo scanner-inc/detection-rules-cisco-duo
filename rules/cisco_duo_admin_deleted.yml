@@ -1,0 +1,19 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Cisco Duo Admin Deleted
+description: |-
+  Detect when an admin user is deleted from Cisco Duo.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:cisco-duo
+  action:admin_delete
+  | groupbycount(username)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0040.impact
+- techniques.t1531.account_access_removal
+- source.cisco-duo

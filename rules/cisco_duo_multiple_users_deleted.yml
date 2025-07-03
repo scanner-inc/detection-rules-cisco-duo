@@ -1,0 +1,19 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Cisco Duo Multiple Users Deleted
+description: |-
+  Detect when multiple users are deleted from Cisco Duo.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:cisco-duo
+  action:user_delete
+  | countdistinct(username)
+  | where @q.count > 1
+time_range_s: 600
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0040.impact
+- techniques.t1531.account_access_removal
+- source.cisco-duo

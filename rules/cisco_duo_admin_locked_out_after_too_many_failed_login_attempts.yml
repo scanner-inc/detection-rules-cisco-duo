@@ -1,5 +1,5 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
-name: Cisco Duo administrator locked out after too many failed login attempts
+name: Cisco Duo admin locked out after too many failed login attempts
 description: |-
   ## Goal
   Detect when a Duo administrator is locked out of their account due to failed login attempts.

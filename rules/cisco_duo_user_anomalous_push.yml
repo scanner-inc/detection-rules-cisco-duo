@@ -1,0 +1,20 @@
+# schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
+name: Cisco Duo User Auth Denied Due To Anomalous Push
+description: |-
+  Detect when authentication is denied due to anomalous push behavior.
+enabled: true
+severity: Medium
+query_text: |-
+  %ingest.source_type:cisco-duo
+  reason:anomalous_push
+  result:denied
+  | groupbycount(username)
+  | where @q.count > 0
+time_range_s: 300
+run_frequency_s: 60
+event_sink_keys:
+- medium_severity_alerts
+tags:
+- tactics.ta0006.credential_access
+- techniques.t1078.valid_accounts
+- source.cisco-duo
