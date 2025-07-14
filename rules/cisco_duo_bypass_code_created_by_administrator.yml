@@ -18,7 +18,7 @@ description: |-
 enabled: true
 severity: Informational
 query_text: |-
-  %ingest.source_type:cisco-duo
+  %ingest.source_type:"cisco_duo:admin"
   service:activity
   cisco.duo.action.name:bypass_create
   | groupbycount(access_device.ip.address, email)
@@ -29,5 +29,5 @@ event_sink_keys:
 - informational_severity_alerts
 tags:
 - techniques.t1556.modify_authentication_process
-- source.cisco-duo
+- source.cisco_duo
 - tactics.ta0005.defense_evasion

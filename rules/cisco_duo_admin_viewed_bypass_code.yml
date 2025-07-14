@@ -5,7 +5,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:cisco-duo
+  %ingest.source_type:"cisco_duo:admin"
   cisco.duo.action.name:bypass_view
   | groupbycount(username)
   | where @q.count > 0
@@ -15,5 +15,5 @@ event_sink_keys:
 - medium_severity_alerts
 tags:
 - techniques.t1556.modify_authentication_process
-- source.cisco-duo
+- source.cisco_duo
 - tactics.ta0005.defense_evasion

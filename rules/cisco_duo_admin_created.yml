@@ -5,7 +5,7 @@ description: |-
 enabled: true
 severity: High
 query_text: |-
-  %ingest.source_type:cisco-duo
+  %ingest.source_type:"cisco_duo:admin"
   action:admin_create
   | groupbycount(username)
   | where @q.count > 0
@@ -16,4 +16,4 @@ event_sink_keys:
 tags:
 - tactics.ta0004.privilege_escalation
 - techniques.t1136.create_account
-- source.cisco-duo
+- source.cisco_duo

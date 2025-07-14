@@ -14,7 +14,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:cisco-duo
+  %ingest.source_type:"cisco_duo:auth"
   service:authentication
   result:fraud
   | groupbycount(access_device.ip, application.name, email)
@@ -25,5 +25,5 @@ event_sink_keys:
 - medium_severity_alerts
 tags:
 - techniques.t1078.valid_accounts
-- source.cisco-duo
+- source.cisco_duo
 - tactics.ta0001.initial_access

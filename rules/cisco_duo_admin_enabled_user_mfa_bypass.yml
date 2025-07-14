@@ -1,11 +1,11 @@
 # schema: https://scanner.dev/schema/scanner-detection-rule.v1.json
-name: Cisco Duo Admin User MFA Bypass Enabled
+name: Cisco Duo Admin Enabled User MFA Bypass
 description: |-
   Detect when an administrator enables a user to authentication without MFA.
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:cisco-duo
+  %ingest.source_type:"cisco_duo:admin"
   action:user_update
   description.status:bypass
   | groupbycount(username)
@@ -17,4 +17,4 @@ event_sink_keys:
 tags:
 - tactics.ta0005.defense_evasion
 - techniques.t1556.modify_authentication_process
-- source.cisco-duo
+- source.cisco_duo

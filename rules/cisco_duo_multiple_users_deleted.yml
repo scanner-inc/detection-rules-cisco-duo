@@ -5,7 +5,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:cisco-duo
+  %ingest.source_type:"cisco_duo:admin"
   action:user_delete
   | countdistinct(username)
   | where @q.count > 1
@@ -16,4 +16,4 @@ event_sink_keys:
 tags:
 - tactics.ta0040.impact
 - techniques.t1531.account_access_removal
-- source.cisco-duo
+- source.cisco_duo

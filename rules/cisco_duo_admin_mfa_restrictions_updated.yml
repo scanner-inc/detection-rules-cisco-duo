@@ -6,7 +6,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:cisco-duo
+  %ingest.source_type:"cisco_duo:admin"
   action:update_admin_factor_restrictions
   | groupbycount(username)
   | where @q.count > 0
@@ -17,4 +17,4 @@ event_sink_keys:
 tags:
 - tactics.ta0005.defense_evasion
 - techniques.t1556.modify_authentication_process
-- source.cisco-duo
+- source.cisco_duo
