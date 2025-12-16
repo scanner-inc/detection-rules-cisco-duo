@@ -5,7 +5,7 @@ description: |-
 enabled: true
 severity: High
 query_text: |-
-  %ingest.source_type:cisco-duo
+  @scnr.source_type:cisco_duo
   action:integration_create
   description.type:'Admin API'
   | groupbycount(username)
