@@ -18,7 +18,7 @@ description: |-
 enabled: true
 severity: Informational
 query_text: |-
-  %ingest.source_type:cisco-duo
+  @scnr.source_type:cisco_duo
   service:activity
   cisco.duo.action.name:bypass_create
   | groupbycount(access_device.ip.address, email)

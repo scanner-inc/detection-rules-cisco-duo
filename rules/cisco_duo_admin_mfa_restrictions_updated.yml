@@ -6,7 +6,7 @@ description: |-
 enabled: true
 severity: Medium
 query_text: |-
-  %ingest.source_type:cisco-duo
+  @scnr.source_type:cisco_duo
   action:update_admin_factor_restrictions
   | groupbycount(username)
   | where @q.count > 0
