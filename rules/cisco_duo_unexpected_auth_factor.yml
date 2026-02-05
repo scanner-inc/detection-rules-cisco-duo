@@ -4,7 +4,6 @@ description: |-
   Detect when an unexpected authentication factor is used for successful
   authentication. This can indicate potential account compromise or
   unauthorized access methods.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

@@ -2,7 +2,6 @@
 name: Cisco Duo User Denied For Endpoint Error
 description: |-
   Detect when a Duo user's authentication is denied due endpoint-related errors.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

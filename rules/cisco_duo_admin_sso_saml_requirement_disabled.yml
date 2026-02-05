@@ -3,7 +3,6 @@ name: Cisco Duo Admin SSO SAML Requirement Disabled
 description: |-
   Detect when SAML authentication requirements for administrators are
   weakened, which may indicate potential compromise.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

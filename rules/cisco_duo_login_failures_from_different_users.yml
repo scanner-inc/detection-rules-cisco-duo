@@ -4,7 +4,6 @@ description: |-
   Detect failed login attempts from different users.
   This can indicate potential brute force attacks or
   credential stuffing attempts.
-enabled: true
 severity: High
 query_text: |-
   @scnr.source_type:cisco_duo

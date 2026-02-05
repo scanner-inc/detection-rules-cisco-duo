@@ -3,7 +3,6 @@ name: Cisco Duo Admin MFA Restrictions Updated
 description: |-
   Detect when MFA restrictions for administrators are modified, which
   may weaken security posture or indicate potential compromise.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

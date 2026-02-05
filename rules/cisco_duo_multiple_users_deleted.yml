@@ -2,7 +2,6 @@
 name: Cisco Duo Multiple Users Deleted
 description: |-
   Detect when multiple users are deleted from Cisco Duo.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

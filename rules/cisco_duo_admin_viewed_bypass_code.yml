@@ -2,7 +2,6 @@
 name: Cisco Duo Admin Viewed Bypass Code
 description: |-
   Detect when an administrator views an MFA bypass code for a user in Cisco Duo.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

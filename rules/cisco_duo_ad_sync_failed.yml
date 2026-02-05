@@ -4,7 +4,6 @@ description: |-
   Detect when Cisco Duo Active Directory synchronization fails. This
   can indicate connectivity issues, configuration problems, or potential
   security concerns with the AD integration.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

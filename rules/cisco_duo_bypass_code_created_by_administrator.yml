@@ -15,7 +15,6 @@ description: |-
      * Disable or review the administrator's account.
      * Reset any affected user accounts associated with the bypass codes.
      * Initiate a security breach investigation.
-enabled: true
 severity: Informational
 query_text: |-
   @scnr.source_type:cisco_duo

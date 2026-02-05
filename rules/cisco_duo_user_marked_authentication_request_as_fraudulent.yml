@@ -11,7 +11,6 @@ description: |-
   1. Contact the user to confirm why they found the push suspicious.
   2. Investigate the push event, focusing on the IP address and application involved.
   3. If the event is deemed malicious, initiate your organization's incident response process to contain the affected account or device.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

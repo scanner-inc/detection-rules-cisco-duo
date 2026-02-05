@@ -11,7 +11,6 @@ description: |-
   1. Contact the user to determine if they are aware of the failed authentication attempts.
   2. If the user is unaware, investigate the authentication event, focusing on the IP address, application, and user involved.
   3. If the event is deemed malicious, initiate the organization's incident response process to contain the affected account or device.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

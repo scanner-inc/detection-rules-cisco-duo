@@ -2,7 +2,6 @@
 name: Cisco Duo Authentication Policy Updated
 description: |-
   Detect when authentication policies are modified.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

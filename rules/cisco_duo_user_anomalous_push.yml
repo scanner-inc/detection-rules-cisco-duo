@@ -2,7 +2,6 @@
 name: Cisco Duo User Auth Denied Due To Anomalous Push
 description: |-
   Detect when authentication is denied due to anomalous push behavior.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

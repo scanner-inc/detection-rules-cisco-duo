@@ -3,7 +3,6 @@ name: Cisco Duo Admin Marked Push Fraudulent
 description: |-
   Detect when an administrator reports a Duo push authentication
   as fraudulent, which may indicate attempted account compromise.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

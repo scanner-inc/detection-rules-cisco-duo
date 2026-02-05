@@ -2,7 +2,6 @@
 name: Cisco Duo Admin Deleted
 description: |-
   Detect when an admin user is deleted from Cisco Duo.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo

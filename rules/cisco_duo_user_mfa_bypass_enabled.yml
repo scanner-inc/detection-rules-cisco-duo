@@ -2,7 +2,6 @@
 name: Cisco Duo Admin User MFA Bypass Enabled
 description: |-
   Detect when an administrator enables a user to authentication without MFA.
-enabled: true
 severity: Medium
 query_text: |-
   @scnr.source_type:cisco_duo
