@@ -10,7 +10,7 @@ query_text: |-
   event_type:authentication
   result:(denied failure)
   | countdistinct(username)
-  | where @q.count > 10
+  | where @q.uniq > 10
 time_range_s: 600
 run_frequency_s: 60
 event_sink_keys:
@@ -19,3 +19,34 @@ tags:
 - tactics.ta0001.initial_access
 - techniques.t1078.valid_accounts
 - source.cisco-duo
+tests:
+  - name: Failures from 11 different users
+    now_timestamp: "2024-08-21T00:03:00.000Z"
+    dataset_inline: |
+      {"timestamp":"2024-08-21T00:02:00.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:01.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user1"}
+      {"timestamp":"2024-08-21T00:02:02.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user2"}
+      {"timestamp":"2024-08-21T00:02:03.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user3"}
+      {"timestamp":"2024-08-21T00:02:04.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user4"}
+      {"timestamp":"2024-08-21T00:02:05.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user5"}
+      {"timestamp":"2024-08-21T00:02:06.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user6"}
+      {"timestamp":"2024-08-21T00:02:07.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user7"}
+      {"timestamp":"2024-08-21T00:02:08.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user8"}
+      {"timestamp":"2024-08-21T00:02:09.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user9"}
+      {"timestamp":"2024-08-21T00:02:10.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"denied","username":"user10"}
+    expected_detection_result: true
+  - name: Many failures from one user
+    now_timestamp: "2024-08-21T00:03:00.000Z"
+    dataset_inline: |
+      {"timestamp":"2024-08-21T00:02:00.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:01.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:02.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:03.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:04.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:05.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:06.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:07.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:08.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:09.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+      {"timestamp":"2024-08-21T00:02:10.000Z","@scnr.source_type":"cisco_duo","event_type":"authentication","result":"failure","username":"user0"}
+    expected_detection_result: false
