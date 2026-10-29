@@ -7,7 +7,7 @@ query_text: |-
   @scnr.source_type:cisco_duo
   action:user_delete
   | countdistinct(username)
-  | where @q.count > 1
+  | where @q.uniq > 1
 time_range_s: 600
 run_frequency_s: 60
 event_sink_keys:
@@ -16,3 +16,16 @@ tags:
 - tactics.ta0040.impact
 - techniques.t1531.account_access_removal
 - source.cisco-duo
+tests:
+  - name: Two different users deleted
+    now_timestamp: "2024-08-21T00:03:00.000Z"
+    dataset_inline: |
+      {"timestamp":"2024-08-21T00:02:00.000Z","@scnr.source_type":"cisco_duo","action":"user_delete","username":"alice"}
+      {"timestamp":"2024-08-21T00:02:01.000Z","@scnr.source_type":"cisco_duo","action":"user_delete","username":"bob"}
+    expected_detection_result: true
+  - name: Same user deleted twice
+    now_timestamp: "2024-08-21T00:03:00.000Z"
+    dataset_inline: |
+      {"timestamp":"2024-08-21T00:02:00.000Z","@scnr.source_type":"cisco_duo","action":"user_delete","username":"alice"}
+      {"timestamp":"2024-08-21T00:02:01.000Z","@scnr.source_type":"cisco_duo","action":"user_delete","username":"alice"}
+    expected_detection_result: false
